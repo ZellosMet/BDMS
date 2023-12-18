@@ -2,7 +2,7 @@
 	last_name AS 'Фамилия', 
 	first_name AS 'Имя', 
 	middle_name AS 'Отчество', 
-	--DATEDIFF(yyyy, Students.birth_date, GETDATE()) AS 'Возраст',
+	DATEDIFF(hour, Students.birth_date, GETDATE())/8766 AS 'Возраст',
 	--GETDATE() - CONVERT(datetime, Students.birth_date) AS 'Возраст',
 	group_name AS 'Группа'
 	--direction_name AS 'Направление'
@@ -12,3 +12,6 @@ WHERE Students.[group] = Groups.group_id
 AND Groups.direction = Directions.direction_id
 --AND Directions.direction_name = 'Java Development'
 AND Directions.direction_name = 'Разработка программного обеспечения'
+ORDER BY last_name DESC;
+-- ASC - Ascendin (в порядке возрастания)
+-- DESC - Descrnding (в порядке убывания)
