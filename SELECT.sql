@@ -1,14 +1,14 @@
-SELECT 
-	last_name AS 'Фамилия', 
-	first_name AS 'Имя', 
-	middle_name AS 'Отчество', 
-	--DATEDIFF(yyyy, Students.birth_date, GETDATE()) AS 'Возраст',
-	--GETDATE() - CONVERT(datetime, Students.birth_date) AS 'Возраст',
-	group_name AS 'Группа'
-	--direction_name AS 'Направление'
+п»їSELECT 
+	last_name AS 'Р¤Р°РјРёР»РёСЏ', 
+	first_name AS 'РРјСЏ', 
+	middle_name AS 'РћС‚С‡РµСЃС‚РІРѕ', 
+	--DATEDIFF(yyyy, Students.birth_date, GETDATE()) AS 'Р’РѕР·СЂР°СЃС‚',
+	--GETDATE() - CONVERT(datetime, Students.birth_date) AS 'Р’РѕР·СЂР°СЃС‚',
+	group_name AS 'Р“СЂСѓРїРїР°'
+	--direction_name AS 'РќР°РїСЂР°РІР»РµРЅРёРµ'
 FROM Students, Groups, Directions
 WHERE Students.[group] = Groups.group_id
 --AND Groups.group_name = 'PD_212';
 AND Groups.direction = Directions.direction_id
 --AND Directions.direction_name = 'Java Development'
-AND Directions.direction_name = 'Разработка программного обеспечения'
+AND Directions.direction_name = 'Р Р°Р·СЂР°Р±РѕС‚РєР° РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РѕР±РµСЃРїРµС‡РµРЅРёСЏ'
