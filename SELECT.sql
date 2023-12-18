@@ -1,4 +1,5 @@
-﻿SELECT 
+﻿DECLARE @age INT;
+SELECT 
 	last_name AS 'Фамилия', 
 	first_name AS 'Имя', 
 	middle_name AS 'Отчество', 
@@ -12,6 +13,7 @@ WHERE Students.[group] = Groups.group_id
 AND Groups.direction = Directions.direction_id
 --AND Directions.direction_name = 'Java Development'
 AND Directions.direction_name = 'Разработка программного обеспечения'
-ORDER BY last_name DESC;
+-- ORDER BY last_name DESC;
+ORDER BY DATEDIFF(hour, Students.birth_date, GETDATE())/8766 ASC;
 -- ASC - Ascendin (в порядке возрастания)
 -- DESC - Descrnding (в порядке убывания)
