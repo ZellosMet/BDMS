@@ -7,19 +7,18 @@ DECLARE @date				DATE		= @start_date
 DECLARE @time				TIME		= '14:30'
 DECLARE @group				INT			= (SELECT group_id FROM Groups WHERE group_name LIKE '%PD_212%')
 DECLARE @number_of_lessons	TINYINT		= (SELECT number_of_lessons FROM Disciplines WHERE discipline_id = @discipline)
-DECLARE @counter			INT			= 1
-DECLARE @interval			INT
+DECLARE @counter			INT			= 0
 
-WHILE(@counter < @number_of_lessons+1)
+WHILE(@counter < @number_of_lessons)
 BEGIN
 
 	INSERT INTO Schedule(discipline, techer, [date], [time], spent, [group] )
 	VALUES				(@discipline, @teacher, @date, @time, IIF(@date < GETDATE(),  1, 0), @group);
+	SET @counter = @counter + 1;
 
-	IF  (@counter % 2 = 0)
+	IF  (@counter % 2 = 0 )
 		SET @date = IIF(DATEPART (dw, @date) = 6,  DATEADD(dd, 3, @date), DATEADD(dd, 2, @date))
 	SET @time = IIF(@time='14:30', '16:00', '14:30')	
-	SET @counter = @counter + 1;
 
 END;
 
