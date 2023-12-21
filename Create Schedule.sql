@@ -1,4 +1,4 @@
-
+п»ї
 DECLARE @discipline			SMALLINT	= (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE '%Java')
 DECLARE @teacher			INT			= 1
 DECLARE @start_date			DATE		= '2023-06-27'
@@ -30,11 +30,11 @@ END
 --VALUES 
 
 SELECT
-	Disciplines.discipline_name AS 'Дисциплина',
-	Groups.group_name			AS 'Группа',
-	Schedule.[date]				AS 'Дата',
-	Schedule.[time]				AS 'Время',
-	Teachers.last_name + ' ' + Teachers.first_name + ' ' + Teachers.middle_name	As 'Преподователь'
+	Disciplines.discipline_name AS 'Р”РёСЃС†РёРїР»РёРЅР°',
+	Groups.group_name			AS 'Р“СЂСѓРїРїР°',
+	Schedule.[date]				AS 'Р”Р°С‚Р°',
+	Schedule.[time]				AS 'Р’СЂРµРјСЏ',
+	Teachers.last_name + ' ' + Teachers.first_name + ' ' + Teachers.middle_name	As 'РџСЂРµРїРѕРґРѕРІР°С‚РµР»СЊ'
 FROM
 	Schedule, Groups, Disciplines, Teachers
 WHERE 

@@ -1,12 +1,12 @@
-USE PD_212
+п»їUSE PD_212
 
 DECLARE @discipline			SMALLINT	= (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC')
-DECLARE @teacher			INT			= (SELECT teacher_id FROM Teachers WHERE last_name LIKE 'Ковтун' AND first_name LIKE 'Олег' AND middle_name LIKE 'Анатольевич')
+DECLARE @teacher			INT			= (SELECT teacher_id FROM Teachers WHERE last_name LIKE 'РљРѕРІС‚СѓРЅ' AND first_name LIKE 'РћР»РµРі' AND middle_name LIKE 'РђРЅР°С‚РѕР»СЊРµРІРёС‡')
 DECLARE @start_date			DATE		= '2022-11-21'
 DECLARE @date				DATE		= @start_date
 DECLARE @time				TIME		= '14:30'
 DECLARE @group				INT			= (SELECT group_id FROM Groups WHERE group_name LIKE '%PD_212%')
-DECLARE @number_of_lessons	TINYINT		= (SELECT number_of_lessons FROM Disciplines WHERE discipline_id = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Процедурное программирование на языке C++'))
+DECLARE @number_of_lessons	TINYINT		= (SELECT number_of_lessons FROM Disciplines WHERE discipline_id = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'РџСЂРѕС†РµРґСѓСЂРЅРѕРµ РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёРµ РЅР° СЏР·С‹РєРµ C++'))
 DECLARE @counter			INT			= 0
 DECLARE @even_week			BIT			= 0
 
@@ -22,11 +22,11 @@ BEGIN
 	IF (DATEPART (dw, @date) = 4 AND @counter % 2 = 0 AND @even_week = 1 AND @counter < (SELECT number_of_lessons FROM Disciplines WHERE discipline_id = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC')))
 			SET @discipline = IIF(@discipline = 
 			(SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC'), 
-			(SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Процедурное программирование на языке C++'), 
+			(SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'РџСЂРѕС†РµРґСѓСЂРЅРѕРµ РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёРµ РЅР° СЏР·С‹РєРµ C++'), 
 			(SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC'));
 
 	IF (DATEPART (dw, @date) = 6 AND @counter % 2 = 0)
-		SET @discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Процедурное программирование на языке C++')
+		SET @discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'РџСЂРѕС†РµРґСѓСЂРЅРѕРµ РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёРµ РЅР° СЏР·С‹РєРµ C++')
 
 	INSERT INTO Schedule(discipline, techer, [date], [time], spent, [group] )
 	VALUES				(@discipline, @teacher, @date, @time, IIF(@date < GETDATE(),  1, 0), @group);
@@ -39,12 +39,12 @@ BEGIN
 END;
 
 SELECT
-	Disciplines.discipline_name AS 'Дисциплина',
-	Groups.group_name			AS 'Группа',
-	Schedule.[date]				AS 'Дата',
-	Schedule.[time]				AS 'Время',
-	Teachers.last_name + ' ' + Teachers.first_name + ' ' + Teachers.middle_name	As 'Преподователь',
-	IIF(Schedule.spent = 1, 'Проведено', 'Запланировано') AS 'Проведено'
+	Disciplines.discipline_name AS 'Р”РёСЃС†РёРїР»РёРЅР°',
+	Groups.group_name			AS 'Р“СЂСѓРїРїР°',
+	Schedule.[date]				AS 'Р”Р°С‚Р°',
+	Schedule.[time]				AS 'Р’СЂРµРјСЏ',
+	Teachers.last_name + ' ' + Teachers.first_name + ' ' + Teachers.middle_name	As 'РџСЂРµРїРѕРґРѕРІР°С‚РµР»СЊ',
+	IIF(Schedule.spent = 1, 'РџСЂРѕРІРµРґРµРЅРѕ', 'Р—Р°РїР»Р°РЅРёСЂРѕРІР°РЅРѕ') AS 'РџСЂРѕРІРµРґРµРЅРѕ'
 FROM
 	Schedule, Groups, Disciplines, Teachers
 WHERE 

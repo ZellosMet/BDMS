@@ -1,12 +1,12 @@
-USE PD_212
+п»їUSE PD_212
 
 SELECT
-	Disciplines.discipline_name AS 'Дисциплина',
-	Groups.group_name			AS 'Группа',
-	Schedule.[date]				AS 'Дата',
-	Schedule.[time]				AS 'Время',
-	Teachers.last_name + ' ' + Teachers.first_name + ' ' + Teachers.middle_name	As 'Преподователь',
-	IIF(Schedule.spent = 1, 'Проведено', 'Запланировано') AS 'Проведено'
+	Disciplines.discipline_name AS 'Р”РёСЃС†РёРїР»РёРЅР°',
+	Groups.group_name			AS 'Р“СЂСѓРїРїР°',
+	Schedule.[date]				AS 'Р”Р°С‚Р°',
+	Schedule.[time]				AS 'Р’СЂРµРјСЏ',
+	Teachers.last_name + ' ' + Teachers.first_name + ' ' + Teachers.middle_name	As 'РџСЂРµРїРѕРґРѕРІР°С‚РµР»СЊ',
+	IIF(Schedule.spent = 1, 'РџСЂРѕРІРµРґРµРЅРѕ', 'Р—Р°РїР»Р°РЅРёСЂРѕРІР°РЅРѕ') AS 'РџСЂРѕРІРµРґРµРЅРѕ'
 FROM
 	Schedule, Groups, Disciplines, Teachers
 WHERE 
