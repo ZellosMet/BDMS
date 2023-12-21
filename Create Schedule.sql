@@ -1,3 +1,4 @@
+
 DECLARE @discipline			SMALLINT	= (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE '%Java')
 DECLARE @teacher			INT			= 1
 DECLARE @start_date			DATE		= '2023-06-27'

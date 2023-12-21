@@ -1,4 +1,7 @@
-DELETE FROM Schedule WHERE discipline = 13;
+USE PD_212
+
+DELETE FROM Schedule WHERE discipline = 1
+DELETE FROM Schedule WHERE discipline = 55;
 
 SELECT
 	Disciplines.discipline_name AS 'Дисциплина',

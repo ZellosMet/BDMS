@@ -1,10 +1,12 @@
+USE PD_212
+
 SELECT
 	Disciplines.discipline_name AS 'Дисциплина',
 	Groups.group_name			AS 'Группа',
 	Schedule.[date]				AS 'Дата',
 	Schedule.[time]				AS 'Время',
 	Teachers.last_name + ' ' + Teachers.first_name + ' ' + Teachers.middle_name	As 'Преподователь',
-	Schedule.spent AS 'Проведено'
+	IIF(Schedule.spent = 1, 'Проведено', 'Запланировано') AS 'Проведено'
 FROM
 	Schedule, Groups, Disciplines, Teachers
 WHERE 
