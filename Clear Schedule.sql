@@ -1,7 +1,8 @@
 ﻿USE PD_212
 
+--DELETE FROM Schedule WHERE discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC')
+--DELETE FROM Schedule WHERE discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Процедурное программирование на языке C++')
 DELETE FROM Schedule WHERE discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Теория баз данных, программирование MySQL')
---DELETE FROM Schedule WHERE discipline = 55;
 
 SELECT
 	Disciplines.discipline_name AS 'Дисциплина',

@@ -1,7 +1,7 @@
 ﻿USE PD_212
 
 DECLARE @discipline			SMALLINT	= (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Теория баз данных, программирование MySQL')
-DECLARE @teacher			INT			= (SELECT teacher_id FROM Teachers WHERE last_name LIKE 'Ковтун' AND first_name LIKE 'Олег' AND middle_name LIKE 'Анатольевич')
+DECLARE @teacher			INT			= (SELECT teacher_id FROM Teachers WHERE last_name LIKE 'Покидюк' AND first_name LIKE 'Марина' AND middle_name LIKE 'Олеговна')
 DECLARE @start_date			DATE		= '2023-12-01'
 DECLARE @date				DATE		= @start_date
 DECLARE @time				TIME		= '14:30'

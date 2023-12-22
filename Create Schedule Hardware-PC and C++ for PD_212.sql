@@ -17,16 +17,28 @@ BEGIN
 		SET @even_week = IIF(@even_week = 0, 1, 0)
 
 	IF (DATEPART (dw, @date) = 2 AND @counter % 2 = 0  AND @counter < (SELECT number_of_lessons FROM Disciplines WHERE discipline_id = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC')))
-		SET @discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC');
+	BEGIN
+		SET @discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC')
+		SET @teacher = (SELECT teacher_id FROM Teachers WHERE last_name LIKE 'Кобылинский' AND first_name LIKE 'Андрей' AND middle_name LIKE 'Анатольевич')
+	END
 
 	IF (DATEPART (dw, @date) = 4 AND @counter % 2 = 0 AND @even_week = 1 AND @counter < (SELECT number_of_lessons FROM Disciplines WHERE discipline_id = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC')))
-			SET @discipline = IIF(@discipline = 
-			(SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC'), 
-			(SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Процедурное программирование на языке C++'), 
-			(SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC'));
+	BEGIN		
+		SET @discipline = IIF(@discipline = 
+		(SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC'), 
+		(SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Процедурное программирование на языке C++'), 
+		(SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Hardware-PC'));
+		SET @teacher = IIF(@teacher = 
+		(SELECT teacher_id FROM Teachers WHERE last_name LIKE 'Кобылинский' AND first_name LIKE 'Андрей' AND middle_name LIKE 'Анатольевич'),
+		(SELECT teacher_id FROM Teachers WHERE last_name LIKE 'Ковтун' AND first_name LIKE 'Олег' AND middle_name LIKE 'Анатольевич'),
+		(SELECT teacher_id FROM Teachers WHERE last_name LIKE 'Кобылинский' AND first_name LIKE 'Андрей' AND middle_name LIKE 'Анатольевич'))
+	END
 
 	IF (DATEPART (dw, @date) = 6 AND @counter % 2 = 0)
+	BEGIN
 		SET @discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Процедурное программирование на языке C++')
+		SET @teacher = (SELECT teacher_id FROM Teachers WHERE last_name LIKE 'Ковтун' AND first_name LIKE 'Олег' AND middle_name LIKE 'Анатольевич')
+	END
 
 	INSERT INTO Schedule(discipline, techer, [date], [time], spent, [group] )
 	VALUES				(@discipline, @teacher, @date, @time, IIF(@date < GETDATE(),  1, 0), @group);
