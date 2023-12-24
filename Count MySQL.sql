@@ -1,4 +1,4 @@
-USE PD_212
+п»їUSE PD_212
 
 DECLARE @scheduled_lessons	SMALLINT;
 DECLARE @conducted_lessons	SMALLINT =  
@@ -9,7 +9,7 @@ DECLARE @conducted_lessons	SMALLINT =
 		Schedule.discipline = Disciplines.discipline_id
 	AND Schedule.[group] = Groups.group_id
 	AND Schedule.techer = Teachers.teacher_id
-	AND Schedule.discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Теория баз данных, программирование MySQL')
+	AND Schedule.discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'РўРµРѕСЂРёСЏ Р±Р°Р· РґР°РЅРЅС‹С…, РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёРµ MySQL')
 	AND Schedule.spent = 1
 )
 DECLARE @all_lessons		SMALLINT =  
@@ -20,11 +20,11 @@ DECLARE @all_lessons		SMALLINT =
 		Schedule.discipline = Disciplines.discipline_id
 	AND Schedule.[group] = Groups.group_id
 	AND Schedule.techer = Teachers.teacher_id
-	AND Schedule.discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'Теория баз данных, программирование MySQL')
+	AND Schedule.discipline = (SELECT discipline_id FROM Disciplines WHERE discipline_name LIKE 'РўРµРѕСЂРёСЏ Р±Р°Р· РґР°РЅРЅС‹С…, РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёРµ MySQL')
 )
 SET @scheduled_lessons = @all_lessons - @conducted_lessons;
 
-PRINT 'Занятия по MySQL за декабрь 2023:'
-PRINT 'Всего занятий ' + CONVERT(varchar, @all_lessons);
-PRINT 'Проведённых занятий ' + CONVERT(varchar, @conducted_lessons);
-PRINT 'Запланированных занятий ' + CONVERT(varchar, @scheduled_lessons);
+PRINT 'Р—Р°РЅСЏС‚РёСЏ РїРѕ MySQL Р·Р° РґРµРєР°Р±СЂСЊ 2023:'
+PRINT 'Р’СЃРµРіРѕ Р·Р°РЅСЏС‚РёР№ ' + CONVERT(varchar, @all_lessons);
+PRINT 'РџСЂРѕРІРµРґС‘РЅРЅС‹С… Р·Р°РЅСЏС‚РёР№ ' + CONVERT(varchar, @conducted_lessons);
+PRINT 'Р—Р°РїР»Р°РЅРёСЂРѕРІР°РЅРЅС‹С… Р·Р°РЅСЏС‚РёР№ ' + CONVERT(varchar, @scheduled_lessons);
