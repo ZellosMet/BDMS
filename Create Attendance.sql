@@ -1,62 +1,34 @@
-﻿USE PD_212
+﻿DECLARE @start_lessons_id BIGINT = 
+(
+SELECT MIN(lesson_id) 
+FROM Schedule, Disciplines, Groups 
+WHERE group_name = 'PD_212' 
+AND discipline_name LIKE '%MySQL%'
+AND discipline = discipline_id
+AND spent = 1
+)
 
-DECLARE @student			INT			= 3
-DECLARE @lesson				BIGINT		= 1162
-DECLARE @present			TINYINT		= (SELECT ROUND(RAND()*(1-0)+0, 0))
+DECLARE @end_lessons_id BIGINT = 
+(
+SELECT MAX(lesson_id) 
+FROM Schedule, Disciplines, Groups 
+WHERE group_name = 'PD_212' 
+AND discipline_name LIKE '%MySQL%'
+AND discipline = discipline_id
+AND spent = 1
+)
 
-WHILE(@lesson<=1257)
+DECLARE @lesson_id BIGINT = @start_lessons_id
+DECLARE @iterator INT = 1
+WHILE (@lesson_id <= @end_lessons_id)
 BEGIN
-	WHILE(@student<=23)
+	WHILE (@iterator <= (SELECT COUNT (stud_id) FROM Students JOIN Groups ON [group] = group_id WHERE group_name = 'PD_212'))
 	BEGIN
-			INSERT INTO Attendance(stud_id, lessons_id, present)
-			VALUES (@student, @lesson, @present);
-			SET @student += 1;
+		DECLARE @id INT = (SELECT MAX(stud_id) FROM (SELECT TOP (@iterator) Students.stud_id FROM Students, Groups WHERE [group]=group_id AND group_name = 'PD_212') Students)
+		INSERT INTO Attendance(stud_id, lessons_id, present)
+		VALUES (@id, @lesson_id, (SELECT ROUND(RAND(@iterator+@lesson_id*1000000), 0)))
+		SET @iterator += 1
 	END
-	SET @student = 3;
-	SET @lesson	+= 2
-	SET @present = (SELECT ROUND(RAND()*(1-0)+0, 0))
+SET @iterator = 1
+SET @lesson_id += 1
 END
-
-SET @lesson	= 1494
-SET @student = 3;
-
-WHILE(@lesson<=1517)
-BEGIN
-	WHILE(@student<=23)
-	BEGIN
-			INSERT INTO Attendance(stud_id, lessons_id, present)
-			VALUES (@student, @lesson, @present);
-			SET @student += 1;
-	END
-	SET @student = 3;
-	SET @lesson	+= 2
-	SET @present = (SELECT ROUND(RAND()*(1-0)+0, 0))
-END
-
-SET @lesson	= 2598
-SET @student = 3;
-
-WHILE(@lesson<=2769)
-BEGIN
-	WHILE(@student<=23)
-	BEGIN
-			INSERT INTO Attendance(stud_id, lessons_id, present)
-			VALUES (@student, @lesson, @present);
-			SET @student += 1;
-	END
-	SET @student = 3;
-	SET @lesson	+= 2
-	SET @present = (SELECT ROUND(RAND()*(1-0)+0, 0))
-END
-
-SELECT 
-		[Студент] = FORMATMESSAGE('%s %s %s', last_name, first_name, middle_name),
-		[Дисциплина] = Disciplines.discipline_name,
-		[Дата занятия] = Schedule.[date],
-		[Посещение] = IIF(Attendance.present = 1, 'Присутствовал', 'Отсутствовал')
-FROM Attendance, Students, Schedule, Disciplines
-WHERE 
-	Attendance.stud_id = Students.stud_id
-AND Attendance.lessons_id = Schedule.lesson_id
-AND Schedule.discipline = Disciplines.discipline_id
-ORDER BY [Дисциплина]
