@@ -1,4 +1,13 @@
-﻿DECLARE @start_lessons_id BIGINT = 
+﻿USE [PD_212]
+GO
+/****** Object:  StoredProcedure [dbo].[FillGrades]    Script Date: 28.12.2023 20:14:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROC [dbo].[FillGrades] AS
+BEGIN
+DECLARE @start_lessons_id BIGINT = 
 	(
 	SELECT MIN(lesson_id) 
 	FROM Schedule, Disciplines, Groups 
@@ -39,5 +48,4 @@
 	SET @lesson_id += 1
 	SET @grade_2 = NULL
 	END
-
-	
+END
